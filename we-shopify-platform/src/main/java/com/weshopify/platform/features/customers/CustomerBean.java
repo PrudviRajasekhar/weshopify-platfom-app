@@ -16,17 +16,27 @@ public class CustomerBean implements Serializable {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
+	private String firstName;
+	private String lastName;
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 	private String userName;
 	private String email;
 	private String password;
 	private String mobileNumber;
+	
 	public String getUserName() {
 		return userName;
-	}
-	@Override
-	public String toString() {
-		return "CustomerBean [userName=" + userName + ", email=" + email + ", password=" + password + ", mobileNumber="
-				+ mobileNumber + "]";
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -40,21 +50,14 @@ public class CustomerBean implements Serializable {
 	public String getPassword() {
 		return password;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + customerId;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((mobileNumber == null) ? 0 : mobileNumber.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
@@ -76,6 +79,16 @@ public class CustomerBean implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
 		if (mobileNumber == null) {
 			if (other.mobileNumber != null)
 				return false;
@@ -93,5 +106,21 @@ public class CustomerBean implements Serializable {
 			return false;
 		return true;
 	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+	@Override
+	public String toString() {
+		return "CustomerBean [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", userName=" + userName + ", email=" + email + ", password=" + password + ", mobileNumber="
+				+ mobileNumber + "]";
+	}
+
 
 }

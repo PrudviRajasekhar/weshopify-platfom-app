@@ -1,10 +1,13 @@
 package com.weshopify.platform.features.customers;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,8 +28,20 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = { "/view-customers" }, method = RequestMethod.GET)
-	public String viewCustomersPage() {
+	public String viewCustomersPage(Model model) {
 		log.info("in render signup page method");
+		List<CustomerBean> customersList = customerService.findAllCustomers();
+		model.addAttribute("customersList", customersList);
+		return "customer.html";
+	}
+	
+	@RequestMapping(value = { "/delete-customers/{customerId}" }, method = RequestMethod.GET)
+	public String deleteCustomers(@PathVariable("customerId") int customerId, Model model) {
+		
+		log.info("deleteing the customet by the customer Id {}",customerId);
+		
+		List<CustomerBean> customersList = customerService.deleteCustomer(customerId);
+		model.addAttribute("customersList", customersList);
 		return "customer.html";
 	}
 
