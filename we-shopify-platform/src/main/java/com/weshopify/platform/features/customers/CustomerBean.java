@@ -10,6 +10,13 @@ public class CustomerBean implements Serializable {
 	private static final long serialVersionUID = -3392255258797133035L;
 	
 	private int customerId;
+	private boolean selfReg;
+	public boolean isSelfReg() {
+		return selfReg;
+	}
+	public void setSelfReg(boolean selfReg) {
+		this.selfReg = selfReg;
+	}
 	public int getCustomerId() {
 		return customerId;
 	}

@@ -22,9 +22,16 @@ public class CustomerController {
 	private CustomerService customerService;
 
 	@RequestMapping(value = { "/customer" }, method = RequestMethod.GET)
-	public String renderSignupPage() {
+	public String customerSelfSignupPage() {
 		log.info("in render signup page method");
 		return "sign-up.html";
+	}
+	
+	@RequestMapping(value = { "/customer-admin-reg" }, method = RequestMethod.GET)
+	public String customerAdminSignupPage(Model model) {
+		log.info("in customer-admin-reg");
+		model.addAttribute("customer", new CustomerBean());
+		return "customer-admin-reg.html";
 	}
 	
 	@RequestMapping(value = { "/view-customers" }, method = RequestMethod.GET)
@@ -48,7 +55,7 @@ public class CustomerController {
 
 	@RequestMapping(value = { "/customer" }, method = RequestMethod.POST)
 	public String createCustomer(CustomerBean customer, Model model) {
-		log.info("Customer Registration information is:\t");
+		log.info("is Customer Self Registered:\t"+customer.isSelfReg());
 		log.info(customer.toString());
 		customer = customerService.saveCustomer(customer);
 		if (customer.getCustomerId() > 0) {
@@ -56,7 +63,21 @@ public class CustomerController {
 			String message = "User Registration Successfull. Proceed with the Login Login";
 			model.addAttribute("message", message);
 		}
-		return "sign-up.html";
+		if(customer.isSelfReg()) {
+			return "sign-up.html";
+		}else {
+			return "redirect:/view-customers";
+		}
+		
+	}
+	
+	@RequestMapping(value = { "/edit-customers/{customerId}" }, method = RequestMethod.GET)
+	public String editCustomer(@PathVariable("customerId") int customerId, Model model) {
+		log.info("customer ID in Edit Customer Page:\t"+customerId);
+		CustomerBean customer = customerService.findCustomerById(customerId);
+		model.addAttribute("customer",customer);
+		return "customer-admin-reg.html";
+		
 	}
 
 }
