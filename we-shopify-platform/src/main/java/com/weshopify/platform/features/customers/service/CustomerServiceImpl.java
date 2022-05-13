@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.weshopify.platform.features.customers.CustomerBean;
 
@@ -23,11 +24,22 @@ public class CustomerServiceImpl implements CustomerService {
 	//private static Set<CustomerBean> IN_MEMORY_DB = new HashSet<CustomerBean>();
 	private static Map<Integer, CustomerBean> IN_MEMORY_DB = new HashMap<Integer, CustomerBean>();
 
+	/**
+	 * if the id is there in the customer bean
+	 * then update the database with the data that is coming inside
+	 * the customer bean else save it as new customer
+	 */
 	@Override
 	public CustomerBean saveCustomer(CustomerBean customerBean) {
-		int customerId = new Random().nextInt();
-		customerBean.setCustomerId(customerId);
-		IN_MEMORY_DB.put(customerId,customerBean);
+		
+		if(customerBean.getCustomerId() != 0) {
+			IN_MEMORY_DB.put(customerBean.getCustomerId(),customerBean);
+		}else {
+			int customerId = new Random().nextInt();
+			customerBean.setCustomerId(customerId);
+			IN_MEMORY_DB.put(customerId,customerBean);
+		}
+		
 		return customerBean;
 	}
 
