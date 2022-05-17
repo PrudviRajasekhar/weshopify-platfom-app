@@ -2,6 +2,12 @@ package com.weshopify.platform.features.customers;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import com.weshopify.platform.features.customers.commons.PasswordValidator;
+
 public class CustomerBean implements Serializable {
 
 	/**
@@ -11,6 +17,31 @@ public class CustomerBean implements Serializable {
 	
 	private int customerId;
 	private boolean selfReg;
+	
+	@NotEmpty(message = "First Name must be Provided, It shouldnt be empty")
+	private String firstName;
+	
+	@NotEmpty(message = "Last Name must be Provided, It shouldnt be empty")
+	private String lastName;
+	
+	@NotEmpty(message = "User Name must be Provided, It shouldnt be empty")
+	private String userName;
+	
+	@NotEmpty(message = "Email must be Provided, It shouldnt be empty")
+	@Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+	private String email;
+	
+	@NotEmpty(message = "Password Must be Provided, It shouldnt be empty")
+	@PasswordValidator(message = "Password should be 8 characters Length with the "
+			+ "One Letter must be Capital and One Number Should Present")
+	private String password;
+	
+	//@Digits(integer = 10,fraction = 2,message = "Mobile Number should be of 10 digits")
+	//@Max(value = 10,message = "Mobile Number should be of minimum 10 digits")
+	//@Max(value = 14,message = "Mobile Number should be of maximum 14 digits")
+	@Pattern(regexp = "^([+]\\d{2})?\\d{10}$",message = "Mobile Number should be of minimum 10 digits")
+	private String mobileNumber;
+	
 	public boolean isSelfReg() {
 		return selfReg;
 	}
@@ -23,25 +54,6 @@ public class CustomerBean implements Serializable {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
-	private String firstName;
-	private String lastName;
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	private String userName;
-	private String email;
-	private String password;
-	private String mobileNumber;
-	
 	public String getUserName() {
 		return userName;
 	}
@@ -56,6 +68,18 @@ public class CustomerBean implements Serializable {
 	}
 	public String getPassword() {
 		return password;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	@Override
 	public int hashCode() {
