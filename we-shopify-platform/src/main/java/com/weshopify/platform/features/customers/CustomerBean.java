@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import com.weshopify.platform.features.customers.commons.EmailDomainValid;
 import com.weshopify.platform.features.customers.commons.PasswordValidator;
 
 public class CustomerBean implements Serializable {
@@ -29,6 +30,7 @@ public class CustomerBean implements Serializable {
 	
 	@NotEmpty(message = "Email must be Provided, It shouldnt be empty")
 	@Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+	@EmailDomainValid(message = "Email Domain is Not Valid. Please Enter the valid email address")
 	private String email;
 	
 	@NotEmpty(message = "Password Must be Provided, It shouldnt be empty")
