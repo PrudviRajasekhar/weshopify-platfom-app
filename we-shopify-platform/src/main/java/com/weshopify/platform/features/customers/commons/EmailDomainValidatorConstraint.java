@@ -19,7 +19,9 @@ public class EmailDomainValidatorConstraint implements ConstraintValidator<Email
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		logger.info("inside the email domainn Validate method");
-		return customerServicesUtil.isValidEmailDomina(value);
+		boolean isValidEmailDomain = false;
+		isValidEmailDomain = customerServicesUtil.isValidEmailDomina(value);
+		return isValidEmailDomain;
 	}
 
 }
