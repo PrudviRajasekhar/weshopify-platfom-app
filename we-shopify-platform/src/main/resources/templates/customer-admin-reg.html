@@ -98,16 +98,19 @@
 										Login
 									</p></font>
 							</div>
-							<div th:if="${errors}">
+							<!-- <div th:if="${errors}">
 								<div th:each="errorMessage:${errors}">
 								<font color="red">
 								   <p th:text="${{errorMessage}}"></p>
 								   </font>
 								</div>
-							</div>
+							</div> -->
 
 						</div>
 						<div class="card-body">
+								<font color="red">
+								   <p th:field="*{firstName}"></p>
+								   </font>
 							<div class="form-group">
 								<input class="form-control form-control-lg" type="text" 
 								th:field="*{firstName}" placeholder="First Name"

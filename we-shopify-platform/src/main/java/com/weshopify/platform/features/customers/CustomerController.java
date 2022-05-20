@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.weshopify.platform.features.customers.service.CustomerService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class CustomerController {
 
-	Logger log = LoggerFactory.getLogger(CustomerController.class);
+	//Logger log = LoggerFactory.getLogger(CustomerController.class);
 
 	@Autowired
 	private CustomerService customerService;
@@ -68,13 +69,20 @@ public class CustomerController {
 			log.info("Data entered by Users contains the errors ");
 			List<FieldError> filedErrors = validationResult.getFieldErrors();
 			filedErrors.stream().forEach(fe->{
-				System.out.println("first Name error:\t"+fe.getDefaultMessage());
+				log.info("Field is :\t"+fe.getField());
+				log.info("error is:\t"+fe.getDefaultMessage());
+				
 				errorList.add(fe.getDefaultMessage());
 			});
-			model.addAttribute("errors", errorList);
+			model.addAttribute("errors", filedErrors);
 			//model.addAttribute("customer", new CustomerBean());
 			model.addAttribute("customer", customer);
-			return "customer-admin-reg.html";
+			if(customer.isSelfReg()) {
+				return "sign-up.html";
+			}else {
+				return "customer-admin-reg.html";
+			}
+			
 		}
 		customer = customerService.saveCustomer(customer);
 		if (customer.getCustomerId() > 0) {
