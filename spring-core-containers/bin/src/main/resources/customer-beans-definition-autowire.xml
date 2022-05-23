@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
+<!--  <bean class="com.weshopify.feature.customers.autowire.CustomerBean" autowire="byType">
+    <property name="customerId" value="1"></property>
+   <property name="firstName" value="John"></property>
+   <property name="lastName" value="Peter"></property>
+   <property name="email" value="john@email.com"></property>
+   <property name="mobileNumber" value="9876543210"></property>
+   <property name="additionalInfo">
+     <props>
+       <prop key="PAN_NUMBER">ABCD98761234</prop>
+       <prop key="AADHAR_NUMBER">1234567891234</prop>
+     </props>
+   </property>
+   
+   <property name="customerData">
+     <map>
+       <entry key="100" value="James"/>
+       <entry key="101" value="Voyez"/>
+     </map>
+   </property>
+   
+   
+   <property name="loansList">
+     <list>
+       <value>HL-1234</value>
+       <value>PL-5673</value>
+     </list>
+   </property>
+   <property name="accountSet">
+     <set>
+       <value>ACC-100</value>
+       <value>ACC-200</value>
+     </set>
+   </property>
+   <property name="homeLoanAccount" ref="homeLoanAccount"></property>
+ </bean> -->
+ 
+ <bean class="com.weshopify.feature.customers.autowire.CustomerAutowiredBean" autowire="default" id="customer">
+ </bean>
+
+ <bean class="com.weshopify.feature.customers.autowire.HomeLoanAccount" id="homeLoanAccount">
+    <property name="loanNumber" value="123456"></property>
+   <property name="loanAmount" value="200000"></property>
+ </bean>
+</beans>
