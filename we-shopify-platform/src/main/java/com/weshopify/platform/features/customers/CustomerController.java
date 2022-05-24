@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,23 +61,13 @@ public class CustomerController {
 
 
 	@RequestMapping(value = { "/customer" }, method = RequestMethod.POST)
-	public String createCustomer(@Valid CustomerBean customer, BindingResult validationResult,Model model) {
+	public String createCustomer(@ModelAttribute("customer") @Valid CustomerBean customer, BindingResult validationResult,Model model) {
 		List<String> errorList = new ArrayList<String>();
 		log.info("is Customer Self Registered:\t"+customer.isSelfReg());
 		log.info(customer.toString());
 		
 		if(validationResult.hasErrors()) {
 			log.info("Data entered by Users contains the errors ");
-			List<FieldError> filedErrors = validationResult.getFieldErrors();
-			filedErrors.stream().forEach(fe->{
-				log.info("Field is :\t"+fe.getField());
-				log.info("error is:\t"+fe.getDefaultMessage());
-				
-				errorList.add(fe.getDefaultMessage());
-			});
-			model.addAttribute("errors", filedErrors);
-			//model.addAttribute("customer", new CustomerBean());
-			model.addAttribute("customer", customer);
 			if(customer.isSelfReg()) {
 				return "sign-up.html";
 			}else {

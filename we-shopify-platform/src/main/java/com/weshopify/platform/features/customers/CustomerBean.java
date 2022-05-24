@@ -22,7 +22,8 @@ public class CustomerBean implements Serializable {
 	private int customerId;
 	private boolean selfReg;
 	
-	@NotEmpty(message = "First Name must be Provided, It shouldnt be empty")
+	//@NotEmpty(message = "First Name must be Provided, It shouldnt be empty")
+	@NotEmpty
 	private String firstName;
 	
 	@NotEmpty(message = "Last Name must be Provided, It shouldnt be empty")

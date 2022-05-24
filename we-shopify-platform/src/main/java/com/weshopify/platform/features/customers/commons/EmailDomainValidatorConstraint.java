@@ -4,6 +4,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.weshopify.platform.features.customers.service.CustomerServicesUtil;
 
@@ -19,7 +20,10 @@ public class EmailDomainValidatorConstraint implements ConstraintValidator<Email
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		log.info("inside the email domainn Validate method");
 		boolean isValidEmailDomain = false;
-		isValidEmailDomain = customerServicesUtil.isValidEmailDomina(value);
+		if(StringUtils.hasText(value)) {
+			isValidEmailDomain = customerServicesUtil.isValidEmailDomina(value);
+		}
+		
 		return isValidEmailDomain;
 	}
 
