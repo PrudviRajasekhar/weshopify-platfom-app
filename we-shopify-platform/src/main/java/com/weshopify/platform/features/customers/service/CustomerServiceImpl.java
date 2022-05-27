@@ -69,7 +69,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public CustomerBean updateCustomer(CustomerBean customerBean) {
 		//IN_MEMORY_DB.put(customerBean.getCustomerId(),customerBean);
-		return saveCustomer(customerBean);
+		if(customerBean.getCustomerId() > 0) {
+			return saveCustomer(customerBean);
+		}else {
+			throw new RuntimeException("Updating Customer applied on existing customers only");
+		}
+		
 	}
 
 	@Override
