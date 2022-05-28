@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.BeanUtils;
@@ -62,6 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
 		 * the auto generated ID to set it back to the bean to send it again for the 
 		 * futher CRD operations
 		 */
+		customerBean.setCustomerId(customerDomain.getCustomerId());
 		BeanUtils.copyProperties(customerDomain, customerBean);
 		return customerBean;
 	}
@@ -94,10 +96,20 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public CustomerBean findCustomerById(int customerId) {
-		Customer customer = customerRepo.findById(customerId).get();
+		Optional<Customer> opt = customerRepo.findById(customerId);
 		CustomerBean customerBean = new CustomerBean();
-		BeanUtils.copyProperties(customer, customerBean);
+		opt.ifPresentOrElse(
+				(customer)->{
+					
+					BeanUtils.copyProperties(customer, customerBean);
+				}, 
+				
+				()->{
+					throw new RuntimeException("No Customer Found with the CustomerId:\t"+customerId);
+				});
+		
 		return customerBean;
+		
 	}
 
 	@Override
