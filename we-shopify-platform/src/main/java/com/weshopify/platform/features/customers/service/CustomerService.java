@@ -9,6 +9,7 @@ public interface CustomerService {
 	public CustomerBean saveCustomer(CustomerBean customerBean);
 	public CustomerBean updateCustomer(CustomerBean customerBean);
 	public List<CustomerBean> findAllCustomers();
+	public List<CustomerBean> findAllCustomers(int currentPage, int noOfRecPerPage);
 	public CustomerBean findCustomerById(int customerId);
 	public List<CustomerBean> deleteCustomer(int customerId);
 	

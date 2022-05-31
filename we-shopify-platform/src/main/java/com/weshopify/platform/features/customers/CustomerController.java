@@ -49,6 +49,16 @@ public class CustomerController {
 		return "customer.html";
 	}
 	
+	@RequestMapping(value = { "/view-customers/{currentPage}/{NoOfRecPerPage}" }, method = RequestMethod.GET)
+	public String viewCustomersPageByPagination(Model model,@PathVariable("currentPage") int currentPage,
+			@PathVariable("NoOfRecPerPage") int NoOfRecPerPage) {
+		log.info("viewCustomersPageByPagination");
+		
+		List<CustomerBean> customersList = customerService.findAllCustomers(currentPage,NoOfRecPerPage);
+		model.addAttribute("customersList", customersList);
+		return "customer.html";
+	}
+	
 	@RequestMapping(value = { "/delete-customers/{customerId}" }, method = RequestMethod.GET)
 	public String deleteCustomers(@PathVariable("customerId") int customerId, Model model) {
 		

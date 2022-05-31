@@ -5,16 +5,16 @@ package com.weshopify.platform.features.customers.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.weshopify.platform.features.customers.CustomerBean;
 import com.weshopify.platform.features.customers.models.Customer;
@@ -114,7 +114,6 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<CustomerBean> deleteCustomer(int customerId) {
-		IN_MEMORY_DB.remove(customerId);
 		customerRepo.deleteById(customerId);
 		//List<CustomerBean> customerList = new ArrayList<CustomerBean>(IN_MEMORY_DB.values());
 		return findAllCustomers();
@@ -123,6 +122,26 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<CustomerBean> searchCustomer() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<CustomerBean> findAllCustomers(int currentPage, int noOfRecPerPage) {
+		
+		Pageable page = PageRequest.of(currentPage, noOfRecPerPage);
+		Page<Customer> customerPages = customerRepo.findAll(page);
+		List<Customer> customerDomainList = customerPages.getContent();
+		
+		//List<CustomerBean> customersList = null;
+		if(customerDomainList != null && customerDomainList.size() >0) {
+			List<CustomerBean> customersList = new ArrayList<>();
+			customerDomainList.stream().forEach(customerDomain->{
+				CustomerBean customerBean = new CustomerBean();
+				BeanUtils.copyProperties(customerDomain, customerBean);
+				customersList.add(customerBean);
+			});
+			return customersList;
+		}
+		
 		return null;
 	}
 

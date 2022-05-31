@@ -126,16 +126,25 @@
 									autocomplete="off" th:value="*{lastName}">
 							</div>
 							<div class="form-group">
+							<p class="alert alert-danger" 
+								  th:if="${#fields.hasErrors('userName')}" 
+								  th:errors="*{userName}"></p>
 								<input class="form-control form-control-lg" type="text"
 									name="userName"  placeholder="User Name"
 									autocomplete="off" th:value="*{userName}">
 							</div>
 							<div class="form-group">
+							<p class="alert alert-danger" 
+								  th:if="${#fields.hasErrors('email')}" 
+								  th:errors="*{email}"></p>
 								<input class="form-control form-control-lg" type="email"
 									name="email"  placeholder="E-mail"
 									autocomplete="off" th:value="*{email}">
 							</div>
 							<div class="form-group">
+							<p class="alert alert-danger" 
+								  th:if="${#fields.hasErrors('password')}" 
+								  th:errors="*{password}"></p>
 								<input class="form-control form-control-lg" id="pass1"
 									type="password" name="password" 
 									placeholder="Password" th:value="*{password}">
@@ -144,6 +153,9 @@
                     <input class="form-control form-control-lg" required="" placeholder="Confirm">
                 </div> -->
 							<div class="form-group">
+							<p class="alert alert-danger" 
+								  th:if="${#fields.hasErrors('mobileNumber')}" 
+								  th:errors="*{mobileNumber}"></p>
 								<input class="form-control form-control-lg" type="text"
 									name="mobileNumber" placeholder="Mobile Number"
 									autocomplete="off" th:value="*{mobileNumber}">
