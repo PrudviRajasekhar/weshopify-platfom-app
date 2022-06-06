@@ -44,8 +44,12 @@ public class CustomerController {
 	@RequestMapping(value = { "/view-customers" }, method = RequestMethod.GET)
 	public String viewCustomersPage(Model model) {
 		log.info("in render signup page method");
-		List<CustomerBean> customersList = customerService.findAllCustomers();
+		int currentPage = 0;
+		int NoOfRecPerPage = 5;
+		List<CustomerBean> customersList = customerService.findAllCustomers(currentPage,NoOfRecPerPage);
 		model.addAttribute("customersList", customersList);
+		model.addAttribute("currentPage", currentPage+1);
+		model.addAttribute("NoOfRecPerPage", NoOfRecPerPage);
 		return "customer.html";
 	}
 	
@@ -55,6 +59,8 @@ public class CustomerController {
 		log.info("viewCustomersPageByPagination");
 		
 		List<CustomerBean> customersList = customerService.findAllCustomers(currentPage,NoOfRecPerPage);
+		model.addAttribute("currentPage", currentPage+1);
+		model.addAttribute("NoOfRecPerPage", NoOfRecPerPage);
 		model.addAttribute("customersList", customersList);
 		return "customer.html";
 	}
