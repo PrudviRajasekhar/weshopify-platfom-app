@@ -324,6 +324,7 @@
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						<div class="page-header">
 							<h2 class="pageheader-title">Customer Details</h2>
+
 							<p class="pageheader-text">Proin placerat ante duiullam
 								scelerisque a velit ac porta, fusce sit amet vestibulum mi.
 								Morbi lobortis pulvinar quam.</p>
@@ -349,6 +350,36 @@
 					<!-- ============================================================== -->
 					<!-- basic table  -->
 					<!-- ============================================================== -->
+					<!-- DropDown start -->
+					<div class="card-body border-top" align="right">
+						<div class="form-group">
+							<!-- <div class="input-group mb-3">
+										<input type="text" class="form-control">
+										<div class="input-group-append be-addon">
+											<button type="button" data-toggle="dropdown"
+												class="btn btn-secondary dropdown-toggle">Search By</button>
+											<div class="dropdown-menu">
+												<a href="#" class="dropdown-item">Email</a><a href="#"
+													class="dropdown-item">User Name</a><a href="#"
+													class="dropdown-item">Mobile</a>
+												<div class="dropdown-divider"></div>												
+											</div>
+										</div>
+									</div> -->
+							<form th:action="@{/search-customers}" method="post">
+							<label>Search:</label>
+								<select name="searchKey">
+									<option>By Email</option>
+									<option>By Mobile</option>
+									<option>By UserName</option>
+								</select> 
+								<input type="text" name="searchText" />
+									<button class="btn-primary" type="submit">Submit</button>
+							</form>
+						</div>
+					</div>
+
+					<!-- DropDown end -->
 					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 						<div class="card">
 							<!-- <h5 class="card-header">Customers Details</h5> -->
@@ -387,23 +418,23 @@
 										</tbody>
 
 									</table>
-									
+
 								</div>
 							</div>
 						</div>
 					</div>
 					<!-- Pagination Buttons -->
-									<div class="btn-group" align="center">
-										<button type="button" class="btn btn-outline-light"
-											data-method="move" data-option="-10" data-second-option="0"
-											title="Move Left">
-											<span class="docs-tooltip" data-toggle="tooltip"
-												data-animation="false"
-												title="$().cropper(&quot;move&quot;, -10, 0)"> <span
-												class="fa fa-arrow-left"></span>
-											</span>
-										</button>
-										<!-- <button type="button" class="btn btn-outline-light"
+					<div class="btn-group" align="center">
+						<button type="button" class="btn btn-outline-light"
+							data-method="move" data-option="-10" data-second-option="0"
+							title="Move Left">
+							<span class="docs-tooltip" data-toggle="tooltip"
+								data-animation="false"
+								title="$().cropper(&quot;move&quot;, -10, 0)"> <span
+								class="fa fa-arrow-left"></span>
+							</span>
+						</button>
+						<!-- <button type="button" class="btn btn-outline-light"
 											data-method="move" data-option="10" data-second-option="0"
 											title="Move Right" onclick="th:href='@{'/view-customers/'+${currentPage}+/${NoOfRecPerPage}}'">
 											<span class="docs-tooltip" data-toggle="tooltip"
@@ -415,35 +446,35 @@
 											</span>
 											
 										</button> -->
-										<a class="btn btn-outline-light"
-											data-method="move" data-option="10" data-second-option="0"
-											title="Move Right" th:href="@{'/view-customers/'+${currentPage}+'/'+${NoOfRecPerPage}}">
-											<span class="docs-tooltip" data-toggle="tooltip"
-												data-animation="false"
-												title="$().cropper(&quot;move&quot;, 10, 0)"> <span
-												class="fa fa-arrow-right">												
-												</span>
-												
-											</span>
-											
-										</a>
-										
-										<div class="container">
-											<div class="dropdown">
-												<button class="btn btn-primary dropdown-toggle"
-													type="button" data-toggle="dropdown">
-													No.Of Rec Per Page <!-- <span class="caret"></span> -->
-												</button>
-												<ul class="dropdown-menu">
-													<li><a th:href="@{'/view-customers/0/5'}">5</a></li>
-													<li><a th:href="@{'/view-customers/0/10'}">10</a></li>
-													<li><a th:href="@{'/view-customers/0/15'}">15</a></li>
-												</ul>
-											</div>
-										</div>
-										<!-- /.dropdown -->
-									</div>
-									<!-- Pagination Buttons -->
+						<a class="btn btn-outline-light" data-method="move"
+							data-option="10" data-second-option="0" title="Move Right"
+							th:href="@{'/view-customers/'+${currentPage}+'/'+${NoOfRecPerPage}}">
+							<span class="docs-tooltip" data-toggle="tooltip"
+							data-animation="false"
+							title="$().cropper(&quot;move&quot;, 10, 0)"> <span
+								class="fa fa-arrow-right"> </span>
+
+						</span>
+
+						</a>
+
+						<div class="container">
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" type="button"
+									data-toggle="dropdown">
+									No.Of Rec Per Page
+									<!-- <span class="caret"></span> -->
+								</button>
+								<ul class="dropdown-menu">
+									<li><a th:href="@{'/view-customers/0/5'}">5</a></li>
+									<li><a th:href="@{'/view-customers/0/10'}">10</a></li>
+									<li><a th:href="@{'/view-customers/0/15'}">15</a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- /.dropdown -->
+					</div>
+					<!-- Pagination Buttons -->
 					<!-- ============================================================== -->
 					<!-- end basic table  -->
 					<!-- ============================================================== -->
@@ -485,8 +516,7 @@
 	<script src="/assets/libs/js/main-js.js"></script>
 	<script
 		src="../../../../../cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script
-		src="/assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+	<script src="/assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
 	<script
 		src="../../../../../cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
 	<script src="/assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>

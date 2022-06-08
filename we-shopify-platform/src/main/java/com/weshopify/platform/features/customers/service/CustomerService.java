@@ -15,5 +15,6 @@ public interface CustomerService {
 	
 	//filter Parameters 
 	public List<CustomerBean> searchCustomer();
+	List<CustomerBean> seachAllCustomers(String searchKey, String searchText);
 	
 }

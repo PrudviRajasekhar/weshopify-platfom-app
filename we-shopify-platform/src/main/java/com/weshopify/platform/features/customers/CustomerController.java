@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.weshopify.platform.features.customers.service.CustomerService;
 
@@ -111,6 +111,22 @@ public class CustomerController {
 		CustomerBean customer = customerService.findCustomerById(customerId);
 		model.addAttribute("customer",customer);
 		return "customer-admin-reg.html";
+		
+	}
+	
+	@RequestMapping(value = { "/search-customers" }, method = RequestMethod.POST)
+	public String searchCustomer(@RequestParam("searchKey") String searchKey, 
+			@RequestParam("searchText") String searchText,Model model) {
+		log.info("searchCustomer searchKey is:\t"+searchKey);
+		log.info("searchCustomer searchText is:\t"+searchText);
+		
+		List<CustomerBean> customersList = customerService.seachAllCustomers(searchKey, searchText);
+		/*
+		 * model.addAttribute("currentPage", currentPage+1);
+		 * model.addAttribute("NoOfRecPerPage", NoOfRecPerPage);
+		 */
+		model.addAttribute("customersList", customersList);
+		return "customer.html";
 		
 	}
 
