@@ -1,7 +1,5 @@
 package com.weshopify.platform.features.customers.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,16 +10,15 @@ import lombok.Data;
 
 @Entity
 @Data
-public class UserPermissions implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6076958089667595763L;
+public class RoleToPermissions {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private String action;
 	
+	@ManyToOne
+	private UserRole role;
+	
+	@ManyToOne
+	private UserPermissions permissions;
 }
