@@ -20,7 +20,8 @@ public class UserPermissions implements Serializable {
 	private static final long serialVersionUID = 6076958089667595763L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String action;
 	
