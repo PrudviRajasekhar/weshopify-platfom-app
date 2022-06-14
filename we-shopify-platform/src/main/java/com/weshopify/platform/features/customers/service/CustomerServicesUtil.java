@@ -21,7 +21,7 @@ public class CustomerServicesUtil {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@Value("${email.domain.validate.api}")
+	@Value("${email.domain.validate.api.value}")
 	private String emailValidateApi;
 
 	@Value("${email.domain.validate.api.key}")
