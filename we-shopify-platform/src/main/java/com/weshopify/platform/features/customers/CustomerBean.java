@@ -6,6 +6,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
+import org.springframework.data.annotation.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.weshopify.platform.features.customers.commons.EmailDomainValid;
 import com.weshopify.platform.features.customers.commons.PasswordValidator;
 
@@ -43,6 +46,10 @@ public class CustomerBean implements Serializable {
 	private String password;
 	
 	@Pattern(regexp = "^([+]\\d{2})?\\d{10}$",message = "Mobile Number should be of minimum 10 digits")
-	private String mobileNumber;	
+	private String mobileNumber;
+	
+	@JsonIgnore
+	@Transient
+	private String role;
 	
 }

@@ -3,6 +3,7 @@ package com.weshopify.platform.features.customers.models;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class UserRole implements Serializable {
 	private String role;
 	private String description;
 
-	@OneToMany(mappedBy = "role")
+	@OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
 	private List<RoleToPermissions> actions;
 
 }
