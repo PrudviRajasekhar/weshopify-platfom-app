@@ -15,6 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.weshopify.platform.features.customers.CustomerBean;
 import com.weshopify.platform.features.customers.commons.CustomerSearchOptions;
@@ -30,11 +33,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Service
 @Slf4j
+//@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
 	// private static Set<CustomerBean> IN_MEMORY_DB = new HashSet<CustomerBean>();
 	private static Map<Integer, CustomerBean> IN_MEMORY_DB = new HashMap<Integer, CustomerBean>();
-
 	
 	private CustomerDataRepo customerRepo;
 	
@@ -90,6 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	}
 
+	
 	@Override
 	public List<CustomerBean> findAllCustomers() {
 		// TODO Auto-generated method stub
@@ -122,11 +126,13 @@ public class CustomerServiceImpl implements CustomerService {
 
 	}
 
+	/*
+	 * @Transactional(isolation = Isolation.READ_COMMITTED, propagation =
+	 * Propagation.REQUIRED, rollbackFor = Throwable.class)
+	 */
 	@Override
 	public List<CustomerBean> deleteCustomer(int customerId) {
 		customerRepo.deleteById(customerId);
-		// List<CustomerBean> customerList = new
-		// ArrayList<CustomerBean>(IN_MEMORY_DB.values());
 		return findAllCustomers();
 	}
 
@@ -136,6 +142,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return null;
 	}
 
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, 
+			propagation = Propagation.NOT_SUPPORTED, 
+			rollbackFor = Throwable.class)
+	 
 	@Override
 	public List<CustomerBean> findAllCustomers(int currentPage, int noOfRecPerPage) {
 

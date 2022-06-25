@@ -51,7 +51,7 @@ public class Customer implements Serializable {
 	
 	private String mobileNumber;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private UserRole role;
 	
 }

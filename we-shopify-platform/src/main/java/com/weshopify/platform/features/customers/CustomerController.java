@@ -7,6 +7,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.SimpleTransactionStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,7 +35,12 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService customerService;
-
+	
+	private TransactionDefinition txDef;
+	
+	@Autowired
+	private PlatformTransactionManager txManager;
+	
 	@RequestMapping(value = { "/customer" }, method = RequestMethod.GET)
 	public String customerSelfSignupPage() {
 		log.info("in render signup page method");
@@ -42,6 +55,12 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = { "/view-customers" }, method = RequestMethod.GET)
+	@Transactional(isolation = Isolation.READ_COMMITTED, 
+					propagation =Propagation.REQUIRED, 
+					rollbackFor = Throwable.class,
+					timeout = 3,
+					readOnly = true)
+	 
 	public String viewCustomersPage(Model model) {
 		log.info("in render signup page method");
 		int currentPage = 0;
@@ -50,6 +69,16 @@ public class CustomerController {
 		model.addAttribute("customersList", customersList);
 		model.addAttribute("currentPage", currentPage+1);
 		model.addAttribute("NoOfRecPerPage", NoOfRecPerPage);
+		
+		txDef = new DefaultTransactionDefinition(Propagation.REQUIRED.value());
+		System.out.println("current transaction isolation level is:\t"+txDef.getIsolationLevel());
+		System.out.println("propagation behaviour is:\t"+txDef.getPropagationBehavior());
+		System.out.println("Time Out of the transaction is:\t"+txDef.getTimeout());
+		TransactionStatus txStatus = txManager.getTransaction(txDef);
+		txManager.commit(txStatus);
+		System.out.println("Transaction status is:\t"+txStatus.isCompleted());
+		System.out.println("does the transaction has the save point:\t"+txStatus.hasSavepoint());
+		
 		return "customer.html";
 	}
 	
@@ -66,11 +95,15 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = { "/delete-customers/{customerId}" }, method = RequestMethod.GET)
+	  @Transactional(isolation = Isolation.READ_COMMITTED, propagation =
+	  Propagation.REQUIRED, rollbackFor = Throwable.class)
 	public String deleteCustomers(@PathVariable("customerId") int customerId, Model model) {
 		
 		log.info("deleteing the customet by the customer Id {}",customerId);
-		
-		List<CustomerBean> customersList = customerService.deleteCustomer(customerId);
+		CustomerBean customer = customerService.findCustomerById(customerId);
+		customer.setSelfReg(true);
+		customerService.updateCustomer(customer);
+		List<CustomerBean> customersList = customerService.deleteCustomer(100);
 		model.addAttribute("customersList", customersList);
 		return "customer.html";
 	}

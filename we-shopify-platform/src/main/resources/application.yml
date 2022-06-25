@@ -12,6 +12,16 @@ email:
 NotEmpty: 
   customer: 
      firstName: First Name must be Provided, It shouldnt be empty
+
+#logging: 
+ #  level: 
+  #    org.springframework: DEBUG
+  
+logging:  file:    #name: application.log
+    path: c:/weshopify-app/  logback:    rollingpolicy:      max-file-size: 1      #max-history: 3      clean-history-on-start: true
+        
+    
+        
 ---
 #Dev Environment Configuration
 spring: 
