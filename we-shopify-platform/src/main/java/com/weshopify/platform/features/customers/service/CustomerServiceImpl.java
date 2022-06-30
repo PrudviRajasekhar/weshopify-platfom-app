@@ -65,6 +65,7 @@ public class CustomerServiceImpl implements CustomerService {
 		 */
 		/**
 		 * Step-1: Convert the bean data to domain to save in database
+		 * 
 		 */
 		Customer customerDomain = new Customer();
 		BeanUtils.copyProperties(customerBean, customerDomain);

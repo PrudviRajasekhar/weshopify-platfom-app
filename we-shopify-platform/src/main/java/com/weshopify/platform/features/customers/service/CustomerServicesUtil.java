@@ -30,7 +30,7 @@ public class CustomerServicesUtil {
 	public boolean isValidEmailDomina(String email) {
 		boolean isValidEmailDomain = false;
 
-		log.info("email API  Is:\t,{},{}", emailValidateApi, emailValidateApiKey);
+		log.info("email API Is:\t,{},{}", emailValidateApi, emailValidateApiKey);
 
 		emailValidateApi = emailValidateApi + emailValidateApiKey + "&email=" + email;
 		ResponseEntity<String> respEntity = restTemplate.getForEntity(emailValidateApi, String.class);
