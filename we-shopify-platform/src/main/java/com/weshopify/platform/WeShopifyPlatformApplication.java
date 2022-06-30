@@ -37,7 +37,6 @@ public class WeShopifyPlatformApplication implements CommandLineRunner{
 		Properties props = ds.getConnection().getClientInfo();
 		System.out.println(ds.getConnection().toString());
 		System.out.println(ds.getCatalog());
-		System.out.println(ds.toString());
 		System.out.println("maximum pool size is:\t"+ds.getMaximumPoolSize());
 		for(Object key: props.keySet()) {
 			System.out.println(props.get(key));

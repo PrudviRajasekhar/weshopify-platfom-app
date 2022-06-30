@@ -18,7 +18,7 @@ NotEmpty:
   #    org.springframework: DEBUG
   
 logging:  file:    #name: application.log
-    path: c:/weshopify-app/  logback:    rollingpolicy:      max-file-size: 1      #max-history: 3      clean-history-on-start: true
+    path: c:/weshopify-app/  logback:    rollingpolicy:      #max-file-size: 1      #max-history: 3      clean-history-on-start: true
         
     
         
