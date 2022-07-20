@@ -23,4 +23,11 @@ public class CustomerAPIError {
 		
 	}
 	
+	public CustomerAPIError(int statusCode, String message) {
+		this.message = message;
+		this.statusCode = statusCode;
+		this.timestamp = LocalDateTime.now();
+		
+	}
+	
 }

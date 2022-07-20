@@ -78,19 +78,9 @@ public class CustomerResource {
 	}
 	
 	@RequestMapping(value = { "/customers" }, method = RequestMethod.POST)
-	public @ResponseBody CustomerBean createCustomer(@RequestBody @Valid  CustomerBean customer, BindingResult validationResult) {
-		List<String> errorList = new ArrayList<String>();
+	public @ResponseBody CustomerBean createCustomer(@Valid @RequestBody CustomerBean customer) {
 		log.info("is Customer Self Registered:\t"+customer.isSelfReg());
 		log.info(customer.toString());
-		
-		/*
-		 * if(validationResult.hasErrors()) {
-		 * log.info("Data entered by Users contains the errors ");
-		 * if(customer.isSelfReg()) { return "sign-up.html"; }else { return
-		 * "customer-admin-reg.html"; }
-		 * 
-		 * }
-		 */
 		customer = customerService.saveCustomer(customer);
 		return customer;
 		

@@ -25,8 +25,7 @@ public class CustomerBean implements Serializable {
 	private int customerId;
 	private boolean selfReg;
 	
-	//@NotEmpty(message = "First Name must be Provided, It shouldnt be empty")
-	@NotEmpty
+	@NotEmpty(message = "First Name must be Provided, It shouldnt be empty")
 	private String firstName;
 	
 	@NotEmpty(message = "Last Name must be Provided, It shouldnt be empty")
@@ -37,6 +36,9 @@ public class CustomerBean implements Serializable {
 	
 	@NotEmpty(message = "Email must be Provided, It shouldnt be empty")
 	@Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
+	/*
+	 * this is a custom constraint for validating the email domains
+	 */
 	@EmailDomainValid(message = "Email Domain is Not Valid. Please Enter the valid email address")
 	private String email;
 	
