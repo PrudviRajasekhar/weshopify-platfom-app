@@ -37,7 +37,7 @@ public class CustomerBean implements Serializable {
 	
 	@NotEmpty(message = "Email must be Provided, It shouldnt be empty")
 	@Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")
-	@EmailDomainValid(message = "Email Domain is Not Valid. Please Enter the valid email address")
+	//@EmailDomainValid(message = "Email Domain is Not Valid. Please Enter the valid email address")
 	private String email;
 	
 	@NotEmpty(message = "Password Must be Provided, It shouldnt be empty")
