@@ -2,7 +2,7 @@ spring:
  thymeleaf: 
       cache: false
  profiles: 
-    active: dev
+    active: qa
 email: 
   domain: 
     validate: 
@@ -17,11 +17,20 @@ NotEmpty:
  #  level: 
   #    org.springframework: DEBUG
   
-logging:  file:    #name: application.log
-    path: c:/weshopify-app/  logback:    rollingpolicy:      #max-file-size: 1      #max-history: 3      clean-history-on-start: true
-        
+logging:
+  file:
+    #name: application.log
+    path: c:/weshopify-app/
+  logback:
+    rollingpolicy:
+      #max-file-size: 1
+      #max-history: 3
+      clean-history-on-start: true
+
+        
     
-        
+    
+    
 ---
 #Dev Environment Configuration
 spring: 
