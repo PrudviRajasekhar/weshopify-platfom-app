@@ -17,11 +17,20 @@ NotEmpty:
  #  level: 
   #    org.springframework: DEBUG
   
-logging:  file:    #name: application.log
-    path: c:/weshopify-app/  logback:    rollingpolicy:      #max-file-size: 1      #max-history: 3      clean-history-on-start: true
-        
+logging:
+  file:
+    #name: application.log
+    path: c:/weshopify-app/
+  logback:
+    rollingpolicy:
+      #max-file-size: 1
+      #max-history: 3
+      clean-history-on-start: true
+
+        
     
-        
+    
+    
 ---
 #Dev Environment Configuration
 spring: 
@@ -45,4 +54,9 @@ spring:
    console: 
     enabled: true
     path: /h2Console
-  profiles: qa            
+  profiles: qa
+  datasource: 
+  driver-class-name: ${DB_DRIVER:org.h2.Driver}
+  url: jdbc:${DB_TYPE:h2}:mem:${DB_SCHEMA:shopifyme-customers}
+  username: ${DB_USER_NAME:sa}
+  password: ${DB_USER_NAME:sa}
