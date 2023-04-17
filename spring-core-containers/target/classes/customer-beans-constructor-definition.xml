@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
+ <bean class="com.weshopify.feature.customers.di.construstor.CustomerBean" id="customer">
+   <constructor-arg name="customerId" value="100"/>
+   <constructor-arg name="firstName" value="James"/>
+   <constructor-arg name="lastName" value="web"/>
+   <constructor-arg name="email" value="jamesweb@tele.com"/>
+   <constructor-arg name="mobileNumber" value="000000"/>
+   <constructor-arg name="customerMessages">
+    <props>
+     <prop key="BalanceDebited">Your Account Has been debited with the Rs. 100</prop>
+     <prop key="BalanceCredited">Your Account Has been credeited with an amount of rs. 1000</prop>
+    </props>
+   </constructor-arg>
+   <constructor-arg name="loanCodes">
+     <map>
+       <entry key="PL" value="Personl Loan"/>
+       <entry key="HL" value="Home Loan"/>
+     </map>
+   </constructor-arg>
+   <constructor-arg name="loanTypes">
+     <set>
+       <value>Personal Loan</value>
+       <value>Home Loan</value>
+     </set>
+   </constructor-arg>
+   <constructor-arg name="accounts">
+     <list>
+       <value>PL-1908765</value>
+       <value>HL-89765</value>
+     </list>
+   </constructor-arg>
+   
+   <constructor-arg name="homeLoan" ref="homeLoanAccount" />
+    </bean>
+    
+    
+    <bean class="com.weshopify.feature.customers.di.construstor.HomeLoanAccount" 
+    id="homeLoanAccount" lazy-init="true">
+     <property name="loanNumber" value="HL-89765"></property>
+     <property name="loanAmount" value="2000000"></property>
+     <!-- <constructor-arg name="loanNumber" value="HL-89765"/>
+     <constructor-arg name="loanAmount" value="2000000"/> -->
+     <!-- <constructor-arg name="customerBean" ref="customer" /> -->
+     <property name="customerBean" ref="customer"></property>
+    </bean>
+</beans>
